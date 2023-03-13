@@ -24,10 +24,18 @@ operators.forEach(operator => operator.addEventListener('click', Operation));
 manipulations.forEach(manipulation => manipulation.addEventListener('click',Manips));
 equal.addEventListener ('click',Equal);
 
+numbers.forEach(number => number.addEventListener('transitionend', removeTransition));
+operators.forEach(operator => operator.addEventListener('transitionend', removeTransition));
+manipulations.forEach(manipulation => manipulation.addEventListener('transitionend',removeTransition));
+equal.addEventListener ('transitionend',removeTransition);
+
 
 
 //functions
-
+function removeTransition(e){ //functions that calls e
+    if(e.propertyName !== 'transform') return; //does not continue function if the property name isnt transform
+    this.classList.remove('playing'); // removes the transition and resets it
+}
 
 function Manips(){
     if (this.dataset.set == '.'){
@@ -55,8 +63,7 @@ function Manips(){
         inputOut = inputAr.join("");
     lowDisp.innerHTML = (`${inputOut}`);
     }
-
-
+    this.classList.add('playing');
 
 }
 
@@ -64,6 +71,7 @@ function Input (){
     inputAr.push(this.dataset.set);
     inputOut = inputAr.join("");
     lowDisp.innerHTML = (`${inputOut}`);
+    this.classList.add('playing');
 }
 
 function Operation(){
@@ -75,6 +83,7 @@ function Operation(){
     }
     inputAr= [];
     decimal.disabled = false;
+    this.classList.add('playing');
 }
 
 function Equal(){
@@ -95,7 +104,7 @@ function Equal(){
     operation[2] =  "";
     lowDisp.innerHTML = (`${output}`);
     inputAr= [];
-    
+    this.classList.add('playing');
     decimal.disabled = false;
 }
 
