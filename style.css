@@ -5,14 +5,14 @@
 #CBE4DE */
 @font-face {
     font-family: techno;
-    src: url(/font/technology.ttf);
+    src: url(./font/technology.ttf);
     font-weight: normal;
     font-style: normal;
 }
 
 @font-face {
     font-family: neuro;
-    src: url(/font/neuropolitical.otf);
+    src: url(./font/neuropolitical.otf);
     font-weight: normal;
     font-style: normal;
 }
