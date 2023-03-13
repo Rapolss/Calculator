@@ -32,9 +32,12 @@ body{
     min-height: 100vh;
     zoom: 90%;
 }
+.middle{
+    flex: 1;
+    align-self: center;
+}
 
 .main{
-    flex:1;
     background-color: #2E4F4F;
     align-self: center;
     display: grid;
