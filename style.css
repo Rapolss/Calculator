@@ -30,7 +30,6 @@ body{
     margin: 0;
     color: #CBE4DE;
     min-height: 100vh;
-    zoom: 90%;
 }
 .middle{
     flex: 1;
