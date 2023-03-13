@@ -3,6 +3,7 @@ const numbers = document.querySelectorAll('.number');
 const operators = document.querySelectorAll('.operator');
 const lowDisp = document.querySelector('.input');
 const manipulations = document.querySelectorAll('.manipulation');
+const equal = document.querySelector('.equal');
 const decimal = document.querySelector('#decimal');
 
 
@@ -18,16 +19,17 @@ let toggle = 0;
 
 //event listeners
 
-numbers.forEach(number => number.addEventListener('click', input));
-operators.forEach(operator => operator.addEventListener('click', transition));
-manipulations.forEach(manipulation => manipulation.addEventListener('click',manips));
+numbers.forEach(number => number.addEventListener('click', Input));
+operators.forEach(operator => operator.addEventListener('click', Operation));
+manipulations.forEach(manipulation => manipulation.addEventListener('click',Manips));
+equal.addEventListener ('click',Equal);
 
 
 
 //functions
 
 
-function manips(){
+function Manips(){
     if (this.dataset.set == '.'){
         inputAr.push(this.dataset.set);
         inputOut = inputAr.join("");
@@ -44,98 +46,56 @@ function manips(){
         inputAr.pop();
         inputOut = inputAr.join("");
         lowDisp.innerHTML = (`${inputOut}`);
+    } else if(this.dataset.set == "sign"){
+        if (inputAr[0] != "-"){
+            inputAr.unshift("-");
+        } else if (inputAr[0] == "-"){
+            inputAr.shift();
+        }
+        inputOut = inputAr.join("");
+    lowDisp.innerHTML = (`${inputOut}`);
     }
 
 
 
 }
 
-function input (){
+function Input (){
     inputAr.push(this.dataset.set);
     inputOut = inputAr.join("");
     lowDisp.innerHTML = (`${inputOut}`);
 }
 
-function transition(){
-    if (toggle == 0){
-
-        operation[1] = this.dataset.set;
-        operation[0] = inputOut;
-        inputAr= [];
-        toggle ++;
-    } else if(toggle == 1){
-        operation[2] = inputOut;
-        inputAr= [];
-        toggle ++;
-    } else if(toggle == 2){
-        if (operation [1] == "+"){
-            output = parseFloat(operation[0]) + parseFloat(operation[2]);
-        } else if (operation [1] == "-"){
-            output = parseFloat(operation[0]) - parseFloat(operation[2]);
-        } else if (operation [1] == "/"){
-            output = parseFloat(operation[0]) / parseFloat(operation[2]);
-        } else if (operation [1] == "*"){
-            output = parseFloat(operation[0]) * parseFloat(operation[2]);
-        }
+function Operation(){
+    operation [1] = this.dataset.set;
+    if (operation [2] == ''){
         operation[0] = output;
-        operation[2] =  "";
-        lowDisp.innerHTML = (`${output}`);
-        inputAr= [];
-        if (this.dataset.set == "="){
-            toggle = 1;
-        } else {
-            operation [1] = this.dataset.set;
-            toggle = 1;
-        }
+    } else {
+        operation[0] = inputOut;
     }
+    inputAr= [];
+    decimal.disabled = false;
+}
 
-    // if (operation[1] == null){  
-    // operation[1] = this.dataset.set;
-    // operation[0] = inputOut;
-    // inputAr= [];
-    // } else if(this.dataset.set== "="){
-        
-    //     if (operation[2] == ''){
-
-    //         operation[2] = memo2;
-
-    //     }else{
-    //     operation[2] = inputOut;
-    //     }
- 
-
-    //     if (operation [1] == "+"){
-    //         output = parseFloat(operation[0]) + parseFloat(operation[2]);
-    //     } else if (operation [1] == "-"){
-    //         output = parseFloat(operation[0]) - parseFloat(operation[2]);
-    //     } else if (operation [1] == "/"){
-    //         output = parseFloat(operation[0]) / parseFloat(operation[2]);
-    //     } else if (operation [1] == "*"){
-    //         output = parseFloat(operation[0]) * parseFloat(operation[2]);
-    //     }
-    //     operation[0] = output;
-    //     memo2 = operation[2];
-    //     operation[2] =  "";
-    //     lowDisp.innerHTML = (`${output}`);
-    //     inputAr= [];
-
-    // }else{
-    //     operation[2] = inputOut;
-    //     operation[1] = this.dataset.set;
-    //     if (operation [1] == "+"){
-    //         output = parseInt(operation[0]) + parseInt(operation[2]);
-    //     } else if (operation [1] == "-"){
-    //         output = parseInt(operation[0]) - parseInt(operation[2]);
-    //     } else if (operation [1] == "/"){
-    //         output = parseInt(operation[0]) / parseInt(operation[2]);
-    //     } else if (operation [1] == "*"){
-    //         output = parseInt(operation[0]) * parseInt(operation[2]);
-    //     }
-    //     operation[0] = output;
-    //     operation[2] =  "";
-    //     lowDisp.innerHTML = (`${output}`);
-    //     inputAr= [];
-    // }
+function Equal(){
+    operation[2] = inputOut;
+    
+   
+    if (operation [1] == "+"){
+        output = parseFloat(operation[0]) + parseFloat(operation[2]);
+    } else if (operation [1] == "-"){
+        output = parseFloat(operation[0]) - parseFloat(operation[2]);
+    } else if (operation [1] == "/"){
+        output = parseFloat(operation[0]) / parseFloat(operation[2]);
+    } else if (operation [1] == "*"){
+        output = parseFloat(operation[0]) * parseFloat(operation[2]);
+    }
+    operation[0] = output;
+    // memo2 = operation[2];
+    operation[2] =  "";
+    lowDisp.innerHTML = (`${output}`);
+    inputAr= [];
+    
     decimal.disabled = false;
 }
 
